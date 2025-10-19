@@ -11,7 +11,7 @@ client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 # Set page configuration
 st.set_page_config(
-    page_title="My Gaming AI assistant",
+    page_title="Gaming AI assistant",
     page_icon="🎮",
     layout="centered"
 )
