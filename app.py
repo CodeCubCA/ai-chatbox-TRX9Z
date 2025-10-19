@@ -30,7 +30,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # App title
-st.title("🎮 My Gaming AI assistant")
+st.title("🎮 Gaming assistant")
 
 # Welcome message
 st.markdown("""
