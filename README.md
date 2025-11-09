@@ -4,7 +4,7 @@ Your ultimate AI-powered gaming companion! Get expert advice, personalized recom
 
 ## 📖 About
 
-The **AI Chat Assistant** is a specialized gaming helper built with Streamlit and powered by Groq's ultra-fast LLaMA 3.3 70B model. This intelligent chatbot understands gaming culture, provides expert recommendations, and adapts its personality to match your conversation style. Whether you're looking for game suggestions, hardware advice, or just want to chat about your favorite titles, this AI assistant has you covered with instant, streaming responses.
+The **AI Chat Assistant** is a specialized gaming helper built with Streamlit and powered by Google's Gemini 2.5 Flash model. This intelligent chatbot understands gaming culture, provides expert recommendations, and adapts its personality to match your conversation style. Whether you're looking for game suggestions, hardware advice, or just want to chat about your favorite titles, this AI assistant has you covered with instant, streaming responses.
 
 The chatbot features three distinct personalities to match your mood and creates an immersive gaming-themed experience with a sleek dark interface and intuitive controls.
 
@@ -22,7 +22,7 @@ The chatbot features three distinct personalities to match your mood and creates
   - Esports news and competitive gaming insights
 
 - ⚡ **Real-Time AI Streaming**
-  - Lightning-fast responses powered by Groq infrastructure
+  - Lightning-fast responses powered by Google Gemini infrastructure
   - Live streaming text generation for natural conversation flow
   - Persistent chat history throughout your session
 
@@ -38,16 +38,16 @@ The chatbot features three distinct personalities to match your mood and creates
 |------------|---------|
 | **Python 3.9+** | Core programming language |
 | **Streamlit 1.40.2** | Web application framework |
-| **Groq API** | AI inference engine (LLaMA 3.3 70B Versatile) |
+| **Google Gemini API** | AI inference engine (Gemini 2.5 Flash) |
 | **python-dotenv 1.0.1** | Environment variable management |
-| **Groq SDK 0.13.0** | Official Groq API client |
+| **google-generativeai 0.8.3** | Official Google Gemini API client |
 
 ## 🚀 How to Run Locally
 
 ### Prerequisites
 - Python 3.9 or higher
 - pip package manager
-- Groq API key (free tier available)
+- Google Gemini API key (free tier available)
 
 ### Installation Steps
 
@@ -74,9 +74,9 @@ The chatbot features three distinct personalities to match your mood and creates
    cp .env.example .env
    ```
 
-   Edit the `.env` file and add your Groq API key:
+   Edit the `.env` file and add your Google Gemini API key:
    ```env
-   GROQ_API_KEY=your_groq_api_key_here
+   GEMINI_API_KEY=your_gemini_api_key_here
    ```
 
 4. **Run the application**
@@ -106,9 +106,9 @@ The chatbot features three distinct personalities to match your mood and creates
    - Branch: `main`
    - Main file path: `app.py`
 
-4. **Add your Groq API key in the Secrets section:**
+4. **Add your Google Gemini API key in the Secrets section:**
    ```toml
-   GROQ_API_KEY = "your_groq_api_key_here"
+   GEMINI_API_KEY = "your_gemini_api_key_here"
    ```
 
 5. **Click "Deploy"** and wait for your app to go live!
@@ -132,21 +132,19 @@ _[Add your screenshots here to showcase the application]_
 
 ## 🔑 API Key Setup
 
-### How to Get Your Free Groq API Key
+### How to Get Your Free Google Gemini API Key
 
-1. **Visit [Groq Console](https://console.groq.com/)**
+1. **Visit [Google AI Studio](https://aistudio.google.com/app/apikey)**
 
-2. **Sign up** for a free account (no credit card required)
+2. **Sign in** with your Google account (no credit card required)
 
-3. **Navigate to API Keys** section
+3. **Click "Create API Key"**
 
-4. **Click "Create API Key"**
+4. **Copy your key** and save it securely
 
-5. **Copy your key** and save it securely
-
-6. **Add the key** to your `.env` file:
+5. **Add the key** to your `.env` file:
    ```env
-   GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxx
+   GEMINI_API_KEY=AIzaSyxxxxxxxxxxxxxxxxxxxxx
    ```
 
 **Important:** Never commit your API key to version control. The `.gitignore` file is configured to exclude `.env` files.
@@ -179,9 +177,8 @@ This project is created as part of the **CodeCub Programming Course**.
 
 ## 🙏 Acknowledgments
 
-- **[Groq](https://groq.com/)** - For providing blazing-fast AI inference
+- **[Google AI](https://ai.google.dev/)** - For providing the powerful Gemini 2.5 Flash model
 - **[Streamlit](https://streamlit.io/)** - For the amazing web framework
-- **[Meta AI](https://ai.meta.com/)** - For the powerful LLaMA 3.3 70B model
 - **[CodeCub](https://codecub.org/)** - For educational support
 
 ---
