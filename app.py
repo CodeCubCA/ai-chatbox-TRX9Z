@@ -1,13 +1,13 @@
 import streamlit as st
 import os
-from groq import Groq
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Initialize Groq client with API key from environment variable
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+# Initialize Google Gemini API with API key from environment variable
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
 # Set page configuration
 st.set_page_config(
@@ -117,26 +117,46 @@ if prompt := st.chat_input("💬 Ask me anything about gaming..."):
         message_placeholder = st.empty()
         full_response = ""
 
-        # Call Groq API with streaming
+        # Call Google Gemini API with streaming
         try:
-            stream = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=st.session_state.messages,
-                temperature=0.7,
-                max_tokens=1024,
+            # Initialize Gemini model
+            model = genai.GenerativeModel('gemini-2.5-flash')
+
+            # Convert messages to Gemini format (excluding system message for now, will add to first user message)
+            gemini_messages = []
+            system_prompt = ""
+
+            for msg in st.session_state.messages:
+                if msg["role"] == "system":
+                    system_prompt = msg["content"]
+                elif msg["role"] == "user":
+                    gemini_messages.append({"role": "user", "parts": [msg["content"]]})
+                elif msg["role"] == "assistant":
+                    gemini_messages.append({"role": "model", "parts": [msg["content"]]})
+
+            # Prepend system prompt to the first user message if exists
+            if system_prompt and gemini_messages:
+                gemini_messages[0]["parts"][0] = f"{system_prompt}\n\nUser: {gemini_messages[0]['parts'][0]}"
+
+            # Start chat with history
+            chat = model.start_chat(history=gemini_messages[:-1] if len(gemini_messages) > 1 else [])
+
+            # Send message and get streaming response
+            response = chat.send_message(
+                gemini_messages[-1]["parts"][0] if gemini_messages else prompt,
                 stream=True
             )
 
             # Display streaming response
-            for chunk in stream:
-                if chunk.choices[0].delta.content is not None:
-                    full_response += chunk.choices[0].delta.content
+            for chunk in response:
+                if chunk.text:
+                    full_response += chunk.text
                     message_placeholder.markdown(full_response + "▌")
 
             message_placeholder.markdown(full_response)
 
         except Exception as e:
-            full_response = f"❌ Error: {str(e)}\n\nPlease check your GROQ_API_KEY in the .env file."
+            full_response = f"❌ Error: {str(e)}\n\nPlease check your GEMINI_API_KEY in the .env file."
             message_placeholder.markdown(full_response)
 
     # Add assistant response to chat history
@@ -174,8 +194,8 @@ with st.sidebar:
 
     st.header("ℹ️ About")
     st.info(
-        "This is a gaming-focused AI chat assistant powered by Groq's "
-        "llama-3.3-70b-versatile model."
+        "This is a gaming-focused AI chat assistant powered by Google's "
+        "Gemini 2.5 Flash model."
     )
 
     # Clear chat button
@@ -184,4 +204,4 @@ with st.sidebar:
         st.rerun()
 
     st.markdown("---")
-    st.markdown("Built with Streamlit & Groq API 🚀")
+    st.markdown("Built with Streamlit & Google Gemini API 🚀")
